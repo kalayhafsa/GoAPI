@@ -28,6 +28,7 @@ public class MasterUsersService
                 masterUser.createdAt = DateTime.UtcNow;
                 masterUser.updatedAt = DateTime.UtcNow;
                 var rs = _masterUsersRepository.Insert(masterUser);
+
                 response.Entity = rs;
             }
             else
