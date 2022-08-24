@@ -1,10 +1,11 @@
 public class DevicesService
 {
     private readonly IRepository<Devices> _devicesRepository;
-
-    public DevicesService(IRepository<Devices> devicesRepository)
+    private readonly IRepository<MasterUsers> _masterUsersRepository;
+    public DevicesService(IRepository<Devices> devicesRepository, IRepository<MasterUsers> masterUsersRepository)
     {
         _devicesRepository = devicesRepository;
+        _masterUsersRepository = masterUsersRepository;
     }
 
     public IServiceResponse<string> GetAllLicense(int customerId, string email)
@@ -62,5 +63,35 @@ public class DevicesService
         }
         return response;
     }
+
+    public IServiceResponse<DeviceInfoResponse> GetInfo(string email)
+    {
+        var response = new ServiceResponse<DeviceInfoResponse>();
+        try
+        {
+            var user = _masterUsersRepository.Table.FirstOrDefault(s => s.email == email);
+            if (user == null)
+                throw new Exception("No registered user found with this email");
+            var devicesCount = _devicesRepository.Table.Where(s => s.customerId == user.customerId).Count();
+            if (devicesCount > 0)
+            {
+                var tabletDevices = _devicesRepository.Table.Where(s => s.licenseType == "tablet" && s.customerId == user.customerId);
+                var result = new DeviceInfoResponse();
+                result.licence = devicesCount;
+                result.inUse = tabletDevices.Where(s => s.isActive == true).Count();
+                result.devices = tabletDevices.ToList();
+                response.Entity = result;
+                response.Count = 1;
+            }
+            response.Success = true;
+        }
+        catch (Exception ex)
+        {
+            response.Message = ex.Message;
+        }
+        return response;
+    }
+
+
 
 }

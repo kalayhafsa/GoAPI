@@ -12,7 +12,7 @@ public class MasterUsersService
     {
         var response = new ServiceResponse<MasterUsers>();
         var cpService = new CPService();
-        var deviceService = new DevicesService(_devicesRepository);
+        var deviceService = new DevicesService(_devicesRepository, _masterUsersRepository);
         try
         {
             var customerCheck = cpService.CPLogin(model.email, model.password);

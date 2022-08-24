@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ app.UseCors(p =>
     p.WithMethods("GET", "POST", "DELETE", "PUT");
     p.AllowAnyHeader();
 });
+
 app.MapPost("/login", async (HttpContext http, LoginRequest model, MasterUsersService service) =>
 {
     var result = service.Login(model);
@@ -27,6 +29,11 @@ app.MapPost("/login", async (HttpContext http, LoginRequest model, MasterUsersSe
         http.Response.StatusCode = 406;
         return Results.Json(result);
     }
+    return Results.Ok(result);
+});
+app.MapGet("/info", async ([FromHeader(Name = "userName")] string userName, HttpContext http, DevicesService service) =>
+{
+    var result = service.GetInfo(userName);
     return Results.Ok(result);
 });
 
