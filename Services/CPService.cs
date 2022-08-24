@@ -38,6 +38,7 @@ public class CPService
     {
         var result = new ServiceResponse<LicenseResult>();
         try
+
         {
             var client = new RestClient(cpUrl + "/customer-licenses/?format=json&license_email=" + email + "&license_key=" + licenseKey + "");
             var request = new RestRequest();
