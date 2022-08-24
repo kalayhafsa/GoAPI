@@ -25,6 +25,7 @@ app.MapPost("/login", async (HttpContext http, LoginRequest model, MasterUsersSe
     if (!result.Success)
     {
         http.Response.StatusCode = 406;
+
         return Results.Json(result);
     }
     return Results.Ok(result);
