@@ -81,6 +81,7 @@ public class DevicesService
                 result.inUse = tabletDevices.Where(s => s.isActive == true).Count();
                 result.devices = tabletDevices.ToList();
                 response.Entity = result;
+
                 response.Count = 1;
             }
             response.Success = true;
