@@ -12,6 +12,7 @@ public class MasterUsersService
     {
         var response = new ServiceResponse<MasterUsers>();
         var cpService = new CPService();
+        var date = DateTime.UtcNow;
         var deviceService = new DevicesService(_devicesRepository, _masterUsersRepository);
         try
         {
@@ -25,8 +26,8 @@ public class MasterUsersService
                 var masterUser = new MasterUsers();
                 masterUser.email = model.email;
                 masterUser.customerId = customerId;
-                masterUser.createdAt = DateTime.UtcNow;
-                masterUser.updatedAt = DateTime.UtcNow;
+                masterUser.createdAt = date;
+                masterUser.updatedAt = date;
                 var rs = _masterUsersRepository.Insert(masterUser);
                 response.Entity = rs;
             }

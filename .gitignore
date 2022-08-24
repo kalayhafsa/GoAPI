@@ -1,0 +1,11 @@
+**/bin
+*/**/bin/Debug
+*/**/bin/Release
+bin/Debug/net6.0/GoAPI.dll
+bin/Debug/net6.0/GoAPI.pdb
+obj/staticwebassets.pack.sentinel
+obj/Debug/net6.0/GoAPI.csproj.CoreCompileInputs.cache
+obj/Debug/net6.0/GoAPI.dll
+obj/Debug/net6.0/GoAPI.pdb
+obj/Debug/net6.0/ref/GoAPI.dll
+obj/Debug/net6.0/refint/GoAPI.dll

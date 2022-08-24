@@ -48,12 +48,13 @@ public class Repository<T> : IRepository<T> where T : class
         return entity;
     }
 
-    public virtual void Update(IEnumerable<T> entities)
+    public virtual IEnumerable<T> Update(IEnumerable<T> entities)
     {
         if (entities == null)
             throw new ArgumentNullException(nameof(entities));
 
         _context.SaveChanges();
+        return entities;
     }
 
     public bool Delete(T entity)

@@ -6,7 +6,7 @@ public interface IRepository<T>
     T Insert(T entity);
     IEnumerable<T> Insert(IEnumerable<T> entities);
     T Update(T entity);
-    void Update(IEnumerable<T> entities);
+    IEnumerable<T> Update(IEnumerable<T> entities);
     bool Delete(T entity);
     bool Delete(IEnumerable<T> entities);
     IEnumerable<T> GetSql(string sql);

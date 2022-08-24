@@ -12,7 +12,7 @@ public class DevicesService
     {
         var response = new ServiceResponse<string>();
         var cpService = new CPService();
-        var date = DateTime.Now;
+        var date = DateTime.UtcNow;
         try
         {
             var tabletLicensesResult = cpService.CPLicense(email, "GoTablet");
@@ -36,8 +36,8 @@ public class DevicesService
                     startDate = DateTime.SpecifyKind(p.start_time, DateTimeKind.Utc),
                     endDate = DateTime.SpecifyKind(p.end_time, DateTimeKind.Utc),
                     isActive = false,
-                    createdAt = DateTime.SpecifyKind(date, DateTimeKind.Utc),
-                    updatedAt = DateTime.SpecifyKind(date, DateTimeKind.Utc),
+                    createdAt = date,
+                    updatedAt = date,
                     licenseId = p.id
                 });
                 _devicesRepository.Insert(items);
@@ -50,7 +50,7 @@ public class DevicesService
                     var dummy = updateItems.Where(p => p.id == item.licenseId).FirstOrDefault();
                     item.startDate = DateTime.SpecifyKind(dummy.start_time, DateTimeKind.Utc);
                     item.endDate = DateTime.SpecifyKind(dummy.end_time, DateTimeKind.Utc);
-                    item.updatedAt = DateTime.SpecifyKind(date, DateTimeKind.Utc);
+                    item.updatedAt = date;
                 }
                 _devicesRepository.Update(items);
             }
