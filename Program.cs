@@ -35,6 +35,7 @@ app.MapPost("/login", async (HttpContext http, LoginRequest model, MasterUsersSe
 app.MapGet("/info", async ([FromHeader(Name = "userName")] string userName, HttpContext http, DevicesService service) =>
 {
     var result = service.GetInfo(userName);
+
     return Results.Ok(result);
 });
 app.MapPost("/sendData", async ([FromHeader(Name = "userName")] string userName, [FromHeader(Name = "type")] string type, HttpContext http, SambaService service) =>
